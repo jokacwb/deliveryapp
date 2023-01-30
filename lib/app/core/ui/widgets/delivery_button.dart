@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:dw9_delivery_app/app/core/ui/styles/text_styles.dart';
 
 class DeliveryButton extends StatelessWidget {
   final String label;
@@ -15,7 +16,10 @@ class DeliveryButton extends StatelessWidget {
       height: height,
       child: ElevatedButton(
         onPressed: onPressed,
-        child: Text(label),
+        child: Text(
+          label,
+          style: TextStyles.i.textButtonLabel,
+        ),
       ),
     );
   }

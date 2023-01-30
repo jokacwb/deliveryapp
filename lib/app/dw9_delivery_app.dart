@@ -1,5 +1,8 @@
-import 'package:dw9_delivery_app/app/core/ui/theme/theme_config.dart';
-import 'package:dw9_delivery_app/app/pages/splash/splash_page.dart';
+import 'package:dw9_delivery_app/app/pages/home/home_router.dart';
+
+import '/app/core/provider/app_binding.dart';
+import '/app/core/ui/theme/theme_config.dart';
+import '/app/pages/splash/splash_page.dart';
 import 'package:flutter/material.dart';
 
 class Dw9DeliveryApp extends StatelessWidget {
@@ -7,11 +10,16 @@ class Dw9DeliveryApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeConfig.theme,
-      debugShowCheckedModeBanner: false,
-      title: 'Delivery App',
-      routes: {'/': (context) => const SplashPage()},
+    return AppBinding(
+      child: MaterialApp(
+        theme: ThemeConfig.theme,
+        debugShowCheckedModeBanner: false,
+        title: 'Delivery App',
+        routes: {
+          '/': (context) => const SplashPage(),
+          '/home': (context) => HomeRouter.page,
+        },
+      ),
     );
   }
 }
