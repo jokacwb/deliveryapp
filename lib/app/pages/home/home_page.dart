@@ -1,32 +1,63 @@
+import 'package:dw9_delivery_app/app/core/ui/base_state/base_state.dart';
+import 'package:dw9_delivery_app/app/core/ui/helpers/loader.dart';
+import 'package:dw9_delivery_app/app/core/ui/helpers/messages.dart';
 import 'package:dw9_delivery_app/app/core/ui/widgets/delivery_appbar.dart';
-import 'package:dw9_delivery_app/app/models/product_model.dart';
+import 'package:dw9_delivery_app/app/pages/home/home_controller.dart';
+import 'package:dw9_delivery_app/app/pages/home/home_state.dart';
 import 'package:dw9_delivery_app/app/pages/home/widgets/product_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends BaseState<HomePage, HomeController> {
+  @override
+  void onReady() {
+    //Busca os produtos depois que a tela de home for construida
+    controller.loadProducts();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: DeliveryAppbar(),
-      body: Column(children: [
-        Expanded(
-          child: ListView.builder(
-            itemCount: 5,
-            itemBuilder: (context, index) {
-              return ProductTile(
-                  product: ProductModel(
-                id: 1,
-                name: 'Pensadao 2 vinas',
-                description: 'Pão com duas vinas, batata panha, queijo e muito sal e pimenta dedo de moça',
-                price: 22.99,
-                image: 'https://kahdog.com.br/wp-content/uploads/2021/07/Fotos-Site-Kahdog6-300x300.jpg',
-              ));
+      body: BlocConsumer<HomeController, HomeState>(
+        listener: (context, state) {
+          state.status.matchAny(
+            any: () => hideLoader(),
+            loading: () => showLoader(),
+            error: () {
+              hideLoader();
+              showError(state.errorMessage ?? ' Erro não informado!');
             },
-          ),
-        )
-      ]),
+          );
+        },
+        buildWhen: (previous, current) => current.status.matchAny(
+          any: () => false,
+          initial: () => true,
+          loaded: () => true,
+        ),
+        builder: (context, state) {
+          return Column(children: [
+            Expanded(
+              child: ListView.builder(
+                itemCount: state.products.length,
+                itemBuilder: (context, index) {
+                  final product = state.products[index];
+                  return ProductTile(
+                    product: product,
+                  );
+                },
+              ),
+            )
+          ]);
+        },
+      ),
     );
   }
 }
