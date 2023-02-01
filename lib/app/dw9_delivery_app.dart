@@ -1,4 +1,5 @@
 import 'package:dw9_delivery_app/app/pages/home/home_router.dart';
+import 'package:dw9_delivery_app/app/pages/product_detail/product_detail_route.dart';
 
 import '/app/core/provider/app_binding.dart';
 import '/app/core/ui/theme/theme_config.dart';
@@ -18,6 +19,7 @@ class Dw9DeliveryApp extends StatelessWidget {
         routes: {
           '/': (context) => const SplashPage(),
           '/home': (context) => HomeRouter.page,
+          '/productDetail': (context) => ProductDetailRoute.page,
         },
       ),
     );
