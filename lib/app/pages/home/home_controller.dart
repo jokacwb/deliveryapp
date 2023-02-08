@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
+import 'package:dw9_delivery_app/app/dto/order_product_dto.dart';
 import 'package:dw9_delivery_app/app/pages/home/home_state.dart';
 import 'package:dw9_delivery_app/app/repository/products/products_repository.dart';
 
@@ -20,5 +21,21 @@ class HomeController extends Cubit<HomeState> {
         state.copyWith(status: HomeStateStatus.error, errorMessage: 'Erro ao buscar produto'),
       );
     }
+  }
+
+  void addOrUpdateBag(OrderProductDto orderProductDto) {
+    //Eh feito com ...  para forçar a destruição e recriação de uma nova lista e o flutter entenda que houve alteração de estado
+    final shoppingBag = [...state.shoppingBag];
+    final orderIndex = shoppingBag.indexWhere((op) => op.product == orderProductDto.product);
+    if (orderIndex > -1) {
+      if (orderProductDto.amount == 0) {
+        shoppingBag.removeAt(orderIndex);
+      } else {
+        shoppingBag[orderIndex] = orderProductDto;
+      }
+    } else {
+      shoppingBag.add(orderProductDto);
+    }
+    emit(state.copyWith(shoppingBag: shoppingBag));
   }
 }

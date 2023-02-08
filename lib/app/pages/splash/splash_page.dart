@@ -1,5 +1,5 @@
 import 'package:dw9_delivery_app/app/core/ui/helpers/size_extensions.dart';
-import 'package:dw9_delivery_app/app/core/ui/widgets/delivery_button.dart';
+import 'package:dw9_delivery_app/app/core/ui/widgets/button_custom.dart';
 import 'package:flutter/material.dart';
 
 class SplashPage extends StatelessWidget {
@@ -32,7 +32,7 @@ class SplashPage extends StatelessWidget {
                   const SizedBox(
                     height: 80,
                   ),
-                  DeliveryButton(
+                  ButtonCustom(
                     label: 'Acessar',
                     onPressed: () {
                       Navigator.of(context).popAndPushNamed('/home');

@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 
 class HomeRouter {
   HomeRouter._();
+  static const String routeName = '/home';
 
   static Widget get page => MultiProvider(
         providers: [

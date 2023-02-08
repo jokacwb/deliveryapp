@@ -18,6 +18,8 @@ class TextStyles {
   TextStyle get textBold => TextStyle(fontWeight: FontWeight.bold, fontFamily: font);
   TextStyle get textExtraBold => TextStyle(fontWeight: FontWeight.w800, fontFamily: font);
   TextStyle get textButtonLabel => textBold.copyWith(fontSize: 18);
+
+  TextStyle get textTitle => textBold.copyWith(fontSize: 28);
 }
 
 extension TextStylesExtensions on BuildContext {
