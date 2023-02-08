@@ -2,6 +2,7 @@ import 'package:dw9_delivery_app/app/core/extensions/formatter_extension.dart';
 import 'package:dw9_delivery_app/app/core/ui/helpers/size_extensions.dart';
 import 'package:dw9_delivery_app/app/core/ui/styles/text_styles.dart';
 import 'package:dw9_delivery_app/app/dto/order_product_dto.dart';
+import 'package:dw9_delivery_app/app/pages/order/order_router.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -14,8 +15,12 @@ class ShoppingBag extends StatelessWidget {
     final sp = await SharedPreferences.getInstance();
     if (!sp.containsKey('accessToken')) {
       final loginResult = await navigator.pushNamed('/auth/login');
+      if (loginResult == null || loginResult == false) {
+        return;
+      }
     }
     //envia para order
+    await navigator.pushNamed(OrderRouter.routeName, arguments: bag);
   }
 
   @override

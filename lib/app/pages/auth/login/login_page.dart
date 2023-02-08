@@ -26,7 +26,6 @@ class _LoginPageState extends BaseState<LoginPage, LoginController> {
     _emailEC.dispose();
     _passwordEC.dispose();
   }
-dia 4 inicio da aula 2
   @override
   Widget build(BuildContext context) {
     return BlocListener<LoginController, LoginState>(

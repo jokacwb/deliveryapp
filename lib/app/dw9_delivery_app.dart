@@ -1,6 +1,7 @@
 import 'package:dw9_delivery_app/app/pages/auth/login/login_router.dart';
 import 'package:dw9_delivery_app/app/pages/auth/register/register_router.dart';
 import 'package:dw9_delivery_app/app/pages/home/home_router.dart';
+import 'package:dw9_delivery_app/app/pages/order/order_router.dart';
 import 'package:dw9_delivery_app/app/pages/product_detail/product_detail_router.dart';
 
 import '/app/core/provider/app_binding.dart';
@@ -24,6 +25,7 @@ class Dw9DeliveryApp extends StatelessWidget {
           ProductDetailRouter.routeName: (context) => ProductDetailRouter.page,
           LoginRouter.routeName: (context) => LoginRouter.page,
           RegisterRouter.routeName: (context) => RegisterRouter.page,
+          OrderRouter.routeName: (context) => OrderRouter.page,
         },
       ),
     );
