@@ -1,8 +1,11 @@
+import 'package:dw9_delivery_app/app/core/extensions/formatter_extension.dart';
 import 'package:dw9_delivery_app/app/core/ui/styles/colors_app.dart';
 import 'package:dw9_delivery_app/app/core/ui/styles/text_styles.dart';
 import 'package:dw9_delivery_app/app/core/ui/widgets/increment_decrement_button.dart';
 import 'package:dw9_delivery_app/app/dto/order_product_dto.dart';
+import 'package:dw9_delivery_app/app/pages/order/order_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class OrderProductTile extends StatelessWidget {
   final int index;
@@ -16,12 +19,13 @@ class OrderProductTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final product = orderProductDto.product;
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Row(
         children: [
           Image.network(
-            'https://www.redefrangoassado.com.br/wp-content/uploads/2021/09/Capturar.jpg',
+            product.image,
             width: 100,
             height: 100,
             fit: BoxFit.cover,
@@ -33,23 +37,27 @@ class OrderProductTile extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    orderProductDto.product.name,
+                    product.name,
                     style: context.textStyles.textRegular.copyWith(fontSize: 16),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        r'R$ 19,90',
+                        (product.price * orderProductDto.amount).currencyPTBR,
                         style: context.textStyles.textMedium.copyWith(
                           fontSize: 14,
                           color: context.colors.secondary,
                         ),
                       ),
                       IncrementDecrementButton.compact(
-                        amount: 1,
-                        onIncrementTap: () {},
-                        onDecrementTap: () {},
+                        amount: orderProductDto.amount,
+                        onIncrementTap: () {
+                          context.read<OrderController>().incrementProduct(index);
+                        },
+                        onDecrementTap: () {
+                          context.read<OrderController>().decrementProduct(index);
+                        },
                       ),
                     ],
                   ),

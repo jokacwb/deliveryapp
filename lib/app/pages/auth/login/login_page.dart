@@ -26,6 +26,7 @@ class _LoginPageState extends BaseState<LoginPage, LoginController> {
     _emailEC.dispose();
     _passwordEC.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<LoginController, LoginState>(
@@ -70,6 +71,7 @@ class _LoginPageState extends BaseState<LoginPage, LoginController> {
                       TextFormField(
                         decoration: const InputDecoration(labelText: 'E-mail'),
                         controller: _emailEC,
+                        keyboardType: TextInputType.emailAddress,
                         validator: Validatorless.multiple([Validatorless.required('Informe o E-mail.'), Validatorless.email('Email não está com formato válido!')]),
                       ),
                       const SizedBox(
@@ -78,6 +80,7 @@ class _LoginPageState extends BaseState<LoginPage, LoginController> {
                       TextFormField(
                         decoration: const InputDecoration(labelText: 'Senha'),
                         controller: _passwordEC,
+                        obscureText: true,
                         validator: Validatorless.required('Senha deve ser informada.'),
                       ),
                       const SizedBox(

@@ -6,6 +6,7 @@ import 'package:dw9_delivery_app/app/pages/home/widgets/product_tile.dart';
 import 'package:dw9_delivery_app/app/pages/home/widgets/shopping_bag.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -17,6 +18,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends BaseState<HomePage, HomeController> {
   @override
   void onReady() {
+    //Força a limpeza das variaveis de token
+    SharedPreferences.getInstance().then((value) => value.clear());
     //Busca os produtos depois que a tela de home for construida
     controller.loadProducts();
   }
@@ -43,7 +46,6 @@ class _HomePageState extends BaseState<HomePage, HomeController> {
         ),
         builder: (context, state) {
           return Column(children: [
-            Text(state.shoppingBag.length.toString()),
             Expanded(
               child: ListView.builder(
                 itemCount: state.products.length,
